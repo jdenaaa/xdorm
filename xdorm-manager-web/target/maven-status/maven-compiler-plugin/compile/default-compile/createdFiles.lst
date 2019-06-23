@@ -1,0 +1,9 @@
+com\xdorm\controller\PageController.class
+com\xdorm\controller\StudentController.class
+com\xdorm\controller\UserController.class
+com\xdorm\controller\ClassController.class
+com\xdorm\controller\MajorController.class
+com\xdorm\controller\RoomController.class
+com\xdorm\controller\CollegeController.class
+com\xdorm\controller\GradeController.class
+com\xdorm\controller\DormController.class

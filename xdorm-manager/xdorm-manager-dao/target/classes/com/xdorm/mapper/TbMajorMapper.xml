@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xdorm.mapper.TbMajorMapper" >
+  <resultMap id="BaseResultMap" type="com.xdorm.pojo.TbMajor" >
+    <id column="major_id" property="majorId" jdbcType="BIGINT" />
+    <result column="college_id" property="collegeId" jdbcType="BIGINT" />
+    <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="college_name" property="collegeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    major_id, college_id, major_name, college_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xdorm.pojo.TbMajorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_major
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_major
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_major
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xdorm.pojo.TbMajorExample" >
+    delete from tb_major
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xdorm.pojo.TbMajor" >
+    insert into tb_major (major_id, college_id, major_name, 
+      college_name)
+    values (#{majorId,jdbcType=BIGINT}, #{collegeId,jdbcType=BIGINT}, #{majorName,jdbcType=VARCHAR}, 
+      #{collegeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdorm.pojo.TbMajor" >
+    insert into tb_major
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="majorId != null" >
+        major_id,
+      </if>
+      <if test="collegeId != null" >
+        college_id,
+      </if>
+      <if test="majorName != null" >
+        major_name,
+      </if>
+      <if test="collegeName != null" >
+        college_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="majorId != null" >
+        #{majorId,jdbcType=BIGINT},
+      </if>
+      <if test="collegeId != null" >
+        #{collegeId,jdbcType=BIGINT},
+      </if>
+      <if test="majorName != null" >
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeName != null" >
+        #{collegeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xdorm.pojo.TbMajorExample" resultType="java.lang.Integer" >
+    select count(*) from tb_major
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_major
+    <set >
+      <if test="record.majorId != null" >
+        major_id = #{record.majorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.collegeId != null" >
+        college_id = #{record.collegeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.majorName != null" >
+        major_name = #{record.majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collegeName != null" >
+        college_name = #{record.collegeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_major
+    set major_id = #{record.majorId,jdbcType=BIGINT},
+      college_id = #{record.collegeId,jdbcType=BIGINT},
+      major_name = #{record.majorName,jdbcType=VARCHAR},
+      college_name = #{record.collegeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdorm.pojo.TbMajor" >
+    update tb_major
+    <set >
+      <if test="collegeId != null" >
+        college_id = #{collegeId,jdbcType=BIGINT},
+      </if>
+      <if test="majorName != null" >
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeName != null" >
+        college_name = #{collegeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdorm.pojo.TbMajor" >
+    update tb_major
+    set college_id = #{collegeId,jdbcType=BIGINT},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      college_name = #{collegeName,jdbcType=VARCHAR}
+    where major_id = #{majorId,jdbcType=BIGINT}
+  </update>
+</mapper>

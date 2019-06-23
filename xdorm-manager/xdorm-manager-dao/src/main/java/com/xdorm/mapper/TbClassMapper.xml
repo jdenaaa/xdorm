@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xdorm.mapper.TbClassMapper" >
+  <resultMap id="BaseResultMap" type="com.xdorm.pojo.TbClass" >
+    <id column="class_id" property="classId" jdbcType="BIGINT" />
+    <result column="grade_id" property="gradeId" jdbcType="BIGINT" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="college_id" property="collegeId" jdbcType="BIGINT" />
+    <result column="major_id" property="majorId" jdbcType="BIGINT" />
+    <result column="grade_name" property="gradeName" jdbcType="VARCHAR" />
+    <result column="college_name" property="collegeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    class_id, grade_id, class_name, college_id, major_id, grade_name, college_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xdorm.pojo.TbClassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_class
+    where class_id = #{classId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_class
+    where class_id = #{classId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xdorm.pojo.TbClassExample" >
+    delete from tb_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xdorm.pojo.TbClass" >
+    insert into tb_class (class_id, grade_id, class_name, 
+      college_id, major_id, grade_name, 
+      college_name)
+    values (#{classId,jdbcType=BIGINT}, #{gradeId,jdbcType=BIGINT}, #{className,jdbcType=VARCHAR}, 
+      #{collegeId,jdbcType=BIGINT}, #{majorId,jdbcType=BIGINT}, #{gradeName,jdbcType=VARCHAR}, 
+      #{collegeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdorm.pojo.TbClass" >
+    insert into tb_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="collegeId != null" >
+        college_id,
+      </if>
+      <if test="majorId != null" >
+        major_id,
+      </if>
+      <if test="gradeName != null" >
+        grade_name,
+      </if>
+      <if test="collegeName != null" >
+        college_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        #{classId,jdbcType=BIGINT},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=BIGINT},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeId != null" >
+        #{collegeId,jdbcType=BIGINT},
+      </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=BIGINT},
+      </if>
+      <if test="gradeName != null" >
+        #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeName != null" >
+        #{collegeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xdorm.pojo.TbClassExample" resultType="java.lang.Integer" >
+    select count(*) from tb_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_class
+    <set >
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=BIGINT},
+      </if>
+      <if test="record.gradeId != null" >
+        grade_id = #{record.gradeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.className != null" >
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collegeId != null" >
+        college_id = #{record.collegeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.majorId != null" >
+        major_id = #{record.majorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.gradeName != null" >
+        grade_name = #{record.gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collegeName != null" >
+        college_name = #{record.collegeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_class
+    set class_id = #{record.classId,jdbcType=BIGINT},
+      grade_id = #{record.gradeId,jdbcType=BIGINT},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      college_id = #{record.collegeId,jdbcType=BIGINT},
+      major_id = #{record.majorId,jdbcType=BIGINT},
+      grade_name = #{record.gradeName,jdbcType=VARCHAR},
+      college_name = #{record.collegeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdorm.pojo.TbClass" >
+    update tb_class
+    <set >
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=BIGINT},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeId != null" >
+        college_id = #{collegeId,jdbcType=BIGINT},
+      </if>
+      <if test="majorId != null" >
+        major_id = #{majorId,jdbcType=BIGINT},
+      </if>
+      <if test="gradeName != null" >
+        grade_name = #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeName != null" >
+        college_name = #{collegeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where class_id = #{classId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdorm.pojo.TbClass" >
+    update tb_class
+    set grade_id = #{gradeId,jdbcType=BIGINT},
+      class_name = #{className,jdbcType=VARCHAR},
+      college_id = #{collegeId,jdbcType=BIGINT},
+      major_id = #{majorId,jdbcType=BIGINT},
+      grade_name = #{gradeName,jdbcType=VARCHAR},
+      college_name = #{collegeName,jdbcType=VARCHAR}
+    where class_id = #{classId,jdbcType=BIGINT}
+  </update>
+</mapper>

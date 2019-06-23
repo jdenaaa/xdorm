@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xdorm.mapper.TbRoomMapper" >
+  <resultMap id="BaseResultMap" type="com.xdorm.pojo.TbRoom" >
+    <id column="room_id" property="roomId" jdbcType="BIGINT" />
+    <result column="dorm_id" property="dormId" jdbcType="BIGINT" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="bed_count" property="bedCount" jdbcType="INTEGER" />
+    <result column="floor" property="floor" jdbcType="INTEGER" />
+    <result column="member_total" property="memberTotal" jdbcType="INTEGER" />
+    <result column="dorm_name" property="dormName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    room_id, dorm_id, room_name, bed_count, floor, member_total, dorm_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xdorm.pojo.TbRoomExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_room
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_room
+    where room_id = #{roomId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_room
+    where room_id = #{roomId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xdorm.pojo.TbRoomExample" >
+    delete from tb_room
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xdorm.pojo.TbRoom" >
+    insert into tb_room (room_id, dorm_id, room_name, 
+      bed_count, floor, member_total, 
+      dorm_name)
+    values (#{roomId,jdbcType=BIGINT}, #{dormId,jdbcType=BIGINT}, #{roomName,jdbcType=VARCHAR}, 
+      #{bedCount,jdbcType=INTEGER}, #{floor,jdbcType=INTEGER}, #{memberTotal,jdbcType=INTEGER}, 
+      #{dormName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdorm.pojo.TbRoom" >
+    insert into tb_room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="dormId != null" >
+        dorm_id,
+      </if>
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="bedCount != null" >
+        bed_count,
+      </if>
+      <if test="floor != null" >
+        floor,
+      </if>
+      <if test="memberTotal != null" >
+        member_total,
+      </if>
+      <if test="dormName != null" >
+        dorm_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        #{roomId,jdbcType=BIGINT},
+      </if>
+      <if test="dormId != null" >
+        #{dormId,jdbcType=BIGINT},
+      </if>
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="bedCount != null" >
+        #{bedCount,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="memberTotal != null" >
+        #{memberTotal,jdbcType=INTEGER},
+      </if>
+      <if test="dormName != null" >
+        #{dormName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xdorm.pojo.TbRoomExample" resultType="java.lang.Integer" >
+    select count(*) from tb_room
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_room
+    <set >
+      <if test="record.roomId != null" >
+        room_id = #{record.roomId,jdbcType=BIGINT},
+      </if>
+      <if test="record.dormId != null" >
+        dorm_id = #{record.dormId,jdbcType=BIGINT},
+      </if>
+      <if test="record.roomName != null" >
+        room_name = #{record.roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedCount != null" >
+        bed_count = #{record.bedCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.floor != null" >
+        floor = #{record.floor,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberTotal != null" >
+        member_total = #{record.memberTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.dormName != null" >
+        dorm_name = #{record.dormName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_room
+    set room_id = #{record.roomId,jdbcType=BIGINT},
+      dorm_id = #{record.dormId,jdbcType=BIGINT},
+      room_name = #{record.roomName,jdbcType=VARCHAR},
+      bed_count = #{record.bedCount,jdbcType=INTEGER},
+      floor = #{record.floor,jdbcType=INTEGER},
+      member_total = #{record.memberTotal,jdbcType=INTEGER},
+      dorm_name = #{record.dormName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdorm.pojo.TbRoom" >
+    update tb_room
+    <set >
+      <if test="dormId != null" >
+        dorm_id = #{dormId,jdbcType=BIGINT},
+      </if>
+      <if test="roomName != null" >
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="bedCount != null" >
+        bed_count = #{bedCount,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="memberTotal != null" >
+        member_total = #{memberTotal,jdbcType=INTEGER},
+      </if>
+      <if test="dormName != null" >
+        dorm_name = #{dormName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where room_id = #{roomId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdorm.pojo.TbRoom" >
+    update tb_room
+    set dorm_id = #{dormId,jdbcType=BIGINT},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      bed_count = #{bedCount,jdbcType=INTEGER},
+      floor = #{floor,jdbcType=INTEGER},
+      member_total = #{memberTotal,jdbcType=INTEGER},
+      dorm_name = #{dormName,jdbcType=VARCHAR}
+    where room_id = #{roomId,jdbcType=BIGINT}
+  </update>
+</mapper>

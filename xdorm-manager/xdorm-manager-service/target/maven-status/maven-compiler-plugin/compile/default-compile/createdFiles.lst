@@ -1,0 +1,8 @@
+com\xdorm\service\impl\UserServiceImpl.class
+com\xdorm\service\impl\DormServiceImpl.class
+com\xdorm\service\impl\GradeServiceImpl.class
+com\xdorm\service\impl\CollegeServiceImpl.class
+com\xdorm\service\impl\MajorServiceImpl.class
+com\xdorm\service\impl\ClassServiceImpl.class
+com\xdorm\service\impl\StudentServiceImpl.class
+com\xdorm\service\impl\RoomServiceImpl.class

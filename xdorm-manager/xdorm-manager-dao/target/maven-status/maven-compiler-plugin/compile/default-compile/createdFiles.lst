@@ -1,0 +1,8 @@
+com\xdorm\mapper\TbGradeMapper.class
+com\xdorm\mapper\TbRoomMapper.class
+com\xdorm\mapper\TbStudentMapper.class
+com\xdorm\mapper\TbDormMapper.class
+com\xdorm\mapper\TbMajorMapper.class
+com\xdorm\mapper\TbClassMapper.class
+com\xdorm\mapper\TbCollegeMapper.class
+com\xdorm\mapper\TbUserMapper.class

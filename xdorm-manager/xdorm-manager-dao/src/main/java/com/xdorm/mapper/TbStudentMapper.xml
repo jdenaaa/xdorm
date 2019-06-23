@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xdorm.mapper.TbStudentMapper">
+	<resultMap id="BaseResultMap" type="com.xdorm.pojo.TbStudent">
+		<id column="stu_id" property="stuId" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="CHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="class_name" property="className"
+			jdbcType="VARCHAR" />
+		<result column="major_name" property="majorName"
+			jdbcType="VARCHAR" />
+		<result column="college_name" property="collegeName"
+			jdbcType="VARCHAR" />
+		<result column="class_id" property="classId" jdbcType="BIGINT" />
+		<result column="major_id" property="majorId" jdbcType="BIGINT" />
+		<result column="college_id" property="collegeId"
+			jdbcType="BIGINT" />
+		<result column="room_id" property="roomId" jdbcType="BIGINT" />
+		<result column="room_name" property="roomName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		stu_id, name, gender, phone, class_name, major_name,
+		college_name, class_id,
+		major_id,
+		college_id, room_id, room_name
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.xdorm.pojo.TbStudentExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from tb_student
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_student
+		where stu_id = #{stuId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		tb_student
+		where stu_id = #{stuId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.xdorm.pojo.TbStudentExample">
+		delete from tb_student
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.xdorm.pojo.TbStudent">
+		insert into tb_student
+		(stu_id, name, gender,
+		phone, class_name, major_name,
+		college_name,
+		class_id, major_id,
+		college_id, room_id, room_name
+		)
+		values
+		(#{stuId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{gender,jdbcType=CHAR},
+		#{phone,jdbcType=VARCHAR},
+		#{className,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR},
+		#{collegeName,jdbcType=VARCHAR}, #{classId,jdbcType=BIGINT},
+		#{majorId,jdbcType=BIGINT},
+		#{collegeId,jdbcType=BIGINT},
+		#{roomId,jdbcType=BIGINT}, #{roomName,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.xdorm.pojo.TbStudent">
+		insert into tb_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="stuId != null">
+				stu_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="gender != null">
+				gender,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="className != null">
+				class_name,
+			</if>
+			<if test="majorName != null">
+				major_name,
+			</if>
+			<if test="collegeName != null">
+				college_name,
+			</if>
+			<if test="classId != null">
+				class_id,
+			</if>
+			<if test="majorId != null">
+				major_id,
+			</if>
+			<if test="collegeId != null">
+				college_id,
+			</if>
+			<if test="roomId != null">
+				room_id,
+			</if>
+			<if test="roomName != null">
+				room_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="stuId != null">
+				#{stuId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=CHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				#{className,jdbcType=VARCHAR},
+			</if>
+			<if test="majorName != null">
+				#{majorName,jdbcType=VARCHAR},
+			</if>
+			<if test="collegeName != null">
+				#{collegeName,jdbcType=VARCHAR},
+			</if>
+			<if test="classId != null">
+				#{classId,jdbcType=BIGINT},
+			</if>
+			<if test="majorId != null">
+				#{majorId,jdbcType=BIGINT},
+			</if>
+			<if test="collegeId != null">
+				#{collegeId,jdbcType=BIGINT},
+			</if>
+			<if test="roomId != null">
+				#{roomId,jdbcType=BIGINT},
+			</if>
+			<if test="roomName != null">
+				#{roomName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.xdorm.pojo.TbStudentExample"
+		resultType="java.lang.Integer">
+		select count(*) from tb_student
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update tb_student
+		<set>
+			<if test="record.stuId != null">
+				stu_id = #{record.stuId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.name != null">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.gender != null">
+				gender = #{record.gender,jdbcType=CHAR},
+			</if>
+			<if test="record.phone != null">
+				phone = #{record.phone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.className != null">
+				class_name = #{record.className,jdbcType=VARCHAR},
+			</if>
+			<if test="record.majorName != null">
+				major_name = #{record.majorName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.collegeName != null">
+				college_name = #{record.collegeName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.classId != null">
+				class_id = #{record.classId,jdbcType=BIGINT},
+			</if>
+			<if test="record.majorId != null">
+				major_id = #{record.majorId,jdbcType=BIGINT},
+			</if>
+			<if test="record.collegeId != null">
+				college_id = #{record.collegeId,jdbcType=BIGINT},
+			</if>
+			<if test="record.roomId != null">
+				room_id = #{record.roomId,jdbcType=BIGINT},
+			</if>
+			<if test="record.roomName != null">
+				room_name = #{record.roomName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update tb_student
+		set stu_id = #{record.stuId,jdbcType=VARCHAR},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		gender =
+		#{record.gender,jdbcType=CHAR},
+		phone =
+		#{record.phone,jdbcType=VARCHAR},
+		class_name =
+		#{record.className,jdbcType=VARCHAR},
+		major_name =
+		#{record.majorName,jdbcType=VARCHAR},
+		college_name =
+		#{record.collegeName,jdbcType=VARCHAR},
+		class_id =
+		#{record.classId,jdbcType=BIGINT},
+		major_id =
+		#{record.majorId,jdbcType=BIGINT},
+		college_id =
+		#{record.collegeId,jdbcType=BIGINT},
+		room_id =
+		#{record.roomId,jdbcType=BIGINT},
+		room_name =
+		#{record.roomName,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.xdorm.pojo.TbStudent">
+		update tb_student
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=CHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				class_name = #{className,jdbcType=VARCHAR},
+			</if>
+			<if test="majorName != null">
+				major_name = #{majorName,jdbcType=VARCHAR},
+			</if>
+			<if test="collegeName != null">
+				college_name = #{collegeName,jdbcType=VARCHAR},
+			</if>
+			<if test="classId != null">
+				class_id = #{classId,jdbcType=BIGINT},
+			</if>
+			<if test="majorId != null">
+				major_id = #{majorId,jdbcType=BIGINT},
+			</if>
+			<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT},
+			</if>
+			<if test="roomId != null">
+				room_id = #{roomId,jdbcType=BIGINT},
+			</if>
+			<if test="roomName != null">
+				room_name = #{roomName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where stu_id = #{stuId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.xdorm.pojo.TbStudent">
+		update tb_student
+		set name = #{name,jdbcType=VARCHAR},
+		gender = #{gender,jdbcType=CHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		class_name = #{className,jdbcType=VARCHAR},
+		major_name =
+		#{majorName,jdbcType=VARCHAR},
+		college_name =
+		#{collegeName,jdbcType=VARCHAR},
+		class_id = #{classId,jdbcType=BIGINT},
+		major_id = #{majorId,jdbcType=BIGINT},
+		college_id =
+		#{collegeId,jdbcType=BIGINT},
+		room_id = #{roomId,jdbcType=BIGINT},
+		room_name = #{roomName,jdbcType=VARCHAR}
+		where stu_id =
+		#{stuId,jdbcType=VARCHAR}
+	</update>
+
+
+	<!-- 自定义-根据stuId列表批量删除 -->
+	<delete id="deleteStudentByStuIdList" parameterType="java.util.List">
+		DELETE FROM tb_student WHERE stu_id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+</mapper>

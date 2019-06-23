@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+<!-- 加载配置文件 -->
+	<!--<context:property-placeholder location="classpath:properties/*.properties"/>-->
+
+	<!-- 包扫描器 -->
+	<context:component-scan
+		base-package="com.xdorm.controller" />
+	<!-- 注解驱动 -->
+	<mvc:annotation-driven />
+	<!-- 视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 配置资源映射 -->
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/>
+
+ 	<mvc:cors>
+		<mvc:mapping path="/**/**" allowed-origins="*"
+			allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+			allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With,Access-Control-Allow-Origin"
+			allow-credentials="true" />
+	</mvc:cors>
+
+	<!-- 引用dubbo服务 -->
+	<dubbo:application name="xdorm-manager-web" />
+	<dubbo:registry protocol="zookeeper" address="192.168.25.208:2181" />
+	 <!--<dubbo:registry protocol="zookeeper"
+		address="localhost:2181" />-->
+	<dubbo:reference
+		interface="com.xdorm.service.StudentService" id="studentService" />
+	<dubbo:reference
+		interface="com.xdorm.service.CollegeService" id="collegeService" />
+	<dubbo:reference
+		interface="com.xdorm.service.MajorService" id="majorService" />
+	<dubbo:reference
+		interface="com.xdorm.service.ClassService" id="classService" />
+	<dubbo:reference
+		interface="com.xdorm.service.DormService" id="dormService" />
+	<dubbo:reference
+		interface="com.xdorm.service.RoomService" id="roomService" />
+	<dubbo:reference
+		interface="com.xdorm.service.GradeService" id="gradeService" />
+	<dubbo:reference
+		interface="com.xdorm.service.UserService" id="userService" />
+</beans>
