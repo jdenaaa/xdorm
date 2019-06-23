@@ -5,5 +5,6 @@
 
 ## 项目还在完善中
 > 2019.06.23 完成了部分功能[学生,学院,班级，公寓等信息的增删改]
-## 使用 vue-manage-admin [https://github.com/lin-xin/vue-manage-system] 修改的前端 预览如图  
+## 使用 vue-manage-admin 作为后台管理系统
+> [https://github.com/lin-xin/vue-manage-system] 修改的后台管理系统 预览如图  
 ![](https://raw.githubusercontent.com/ziranx/tuchuang/master/img/20190623232458.png)
