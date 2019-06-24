@@ -103,7 +103,7 @@ public class StudentServiceImpl implements StudentService {
 			Integer bedCount = room.getBedCount();
 			Integer memberTotal = room.getMemberTotal();
 			// 检查床位是否小于已住人数
-			if (bedCount >= memberTotal) {
+			if (bedCount > memberTotal) {
 				int code = studentMapper.insert(student);
 				if (code != 0) {
 					// 更新该房间已住人数 +1

@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 <!-- 加载配置文件 -->
-	<!--<context:property-placeholder location="classpath:properties/*.properties"/>-->
+	<context:property-placeholder location="classpath:properties/*.properties"/>
 
 	<!-- 包扫描器 -->
 	<context:component-scan
@@ -38,9 +38,7 @@
 
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="xdorm-manager-web" />
-	<dubbo:registry protocol="zookeeper" address="192.168.25.208:2181" />
-	 <!--<dubbo:registry protocol="zookeeper"
-		address="localhost:2181" />-->
+	<dubbo:registry protocol="zookeeper" address="${zookeeper.address}" />
 	<dubbo:reference
 		interface="com.xdorm.service.StudentService" id="studentService" />
 	<dubbo:reference
